@@ -1,0 +1,6 @@
+﻿<MudSelect T="string" @bind-Value="BindingValue" Label="@LabelName" Disabled="@Disabled" Format="F2" AnchorOrigin="Origin.BottomCenter" OffsetY="true" Variant="@Variant" Margin="@Margin">
+    @foreach (var item in _items)
+    {
+        <MudSelectItem T="string" Value="@item.Id.ToString()">@item.Value</MudSelectItem>
+    }
+</MudSelect>

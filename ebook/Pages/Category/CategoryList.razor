@@ -1,0 +1,32 @@
+﻿@page "/category"
+@using ebook.Models.Category
+
+<MudButton @onclick="@(()=>AddCategory())" Variant="Variant.Filled" Color="Color.Primary">
+    Add Category
+</MudButton>
+
+<MudTable Items="categoryModel" Hover="true" SortLabel="Sort By" Elevation="0" Filter="new Func<CategoryModel,bool>(FilterFunc1)">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Category</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<CategoryModel, object>(x=>x.category_id)">SN</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<CategoryModel, object>(x=>x.category_name)"> Category Name</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<CategoryModel, object>(x=>x.description)"> Description</MudTableSortLabel></MudTh>
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="SN">@context.category_id</MudTd>
+        <MudTd DataLabel="Category Name">@context.category_name</MudTd>
+        <MudTd DataLabel="Description">@context.description</MudTd>
+        <MudTd DataLabel="">
+            <MudFab @onclick="@(()=>EditCategory(@context))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small" />
+            <MudFab @onclick="@(()=>DeleteCategory(@context.category_id))" Color="Color.Secondary" Icon="@Icons.Material.Filled.Delete" Size="Size.Small" IconSize="Size.Small" />
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager PageSizeOptions="new int[]{5, 10}" />
+    </PagerContent>
+</MudTable>

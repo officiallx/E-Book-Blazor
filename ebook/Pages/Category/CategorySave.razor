@@ -1,0 +1,21 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudCard Elevation="25">
+            <MudCardContent>
+                <MudGrid>
+                    <MudHidden @bind-Value="categoryModel.category_id"></MudHidden>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudTextField @bind-Value="categoryModel.category_name" Label="Category Name" Variant="Variant.Text" Margin="Margin.Normal"></MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudTextField @bind-Value="categoryModel.description" Label="Description" Variant="Variant.Text" Margin="Margin.Normal"></MudTextField>
+                    </MudItem>
+                </MudGrid>
+            </MudCardContent>
+        </MudCard>
+    </DialogContent>
+    <DialogActions>
+        <br />
+        <MudButton Variant="Variant.Filled" Color="Color.Success" OnClick="Save">Save Author Details</MudButton>
+    </DialogActions>
+</MudDialog>

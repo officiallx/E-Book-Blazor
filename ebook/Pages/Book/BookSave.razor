@@ -1,0 +1,58 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudCard Elevation="25">
+            <MudCardContent>
+                <MudGrid>
+                    <MudHidden @bind-Value="booksModel.book_id"></MudHidden>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudTextField @bind-Value="booksModel.title" Label="Book Name" Variant="Variant.Text" Margin="Margin.Normal"></MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudTextField @bind-Value="booksModel.isbn" Label="ISBN" Variant="Variant.Text" Margin="Margin.Normal"></MudTextField>
+                    </MudItem>
+                </MudGrid>
+                <MudGrid>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudTextField @bind-Value="booksModel.num_pages" Label="Total Pages" Variant="Variant.Text" Margin="Margin.Normal"></MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudDatePicker Label="Published Date" @bind-Date="booksModel.publication_date" DisableToolbar="true" />
+                    </MudItem>
+                </MudGrid>
+                <div style="height:18px"></div>
+                <MudItem xs="12" sm="12" md="12">
+                    <DropDown Margin="Margin.Dense" Variant="Variant.Outlined" ValueChanged="@((id) => booksModel.author_id = Convert.ToInt32(id))" TableName="tblAuthors" InitialValue="@booksModel.author_id.ToString()" Select="true" LabelName="Author"></DropDown>
+                </MudItem>
+                <div style="height:18px"></div>
+                <MudFileUpload T="IBrowserFile" FilesChanged="UploadFiles">
+                    <ButtonTemplate>
+                        <MudButton HtmlTag="label"
+                                   Variant="Variant.Filled"
+                                   Color="Color.Primary"
+                                   StartIcon="@Icons.Material.Filled.CloudUpload"
+                                   for="@context">
+                            Upload Cover Photo
+                        </MudButton>
+                    </ButtonTemplate>
+                </MudFileUpload>
+                @if (files != null)
+                {
+                    <MudText Typo="@Typo.body1">@files.Count() File@(files.Count() == 1 ? "" : "s"):</MudText>
+                    <MudList>
+                        @foreach (var file in files)
+                        {
+                            <MudListItem Icon="@Icons.Material.Filled.AttachFile" @key="@file" Typo="@Typo.subtitle1">
+                                @file.Name <code>@file.Size bytes</code>
+                            </MudListItem>
+                        }
+                    </MudList>
+                }
+            </MudCardContent>
+        </MudCard>
+    </DialogContent>
+    <DialogActions>
+        <br />
+        <MudButton Variant="Variant.Filled" Color="Color.Success" OnClick="Save">Save Book Details</MudButton>
+    </DialogActions>
+</MudDialog>
+
