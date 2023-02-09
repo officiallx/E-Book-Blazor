@@ -1,0 +1,40 @@
+﻿@page "/bookcategory"
+
+@using ebook.Models
+
+@if (menuRoleModel == null)
+{
+    <MudProgressCircular Size="Size.Large" style="height:70px;width:70px;margin-top:22%;margin-left:38%" Class="align-content-center" Color="Color.Primary" Indeterminate="true" />
+}
+
+else
+{
+    <MudGrid>
+        <MudItem xs="4">
+            <DropDown Select="true" Margin="Margin.Normal"  Variant="Variant.Text" InitialValue="@menuRoleModel.book_id.ToString()" ValueChanged="@((book_id)=>MenuRole(int.Parse(book_id)))" LabelName="Select Book" TableName="tblBooks"></DropDown>
+        </MudItem>
+        @if (menuRoleModel.book_id != 0)
+        {
+        <MudItem xs="1">
+            <br>
+            <MudButton Variant="Variant.Filled" Margin="Margin.Normal" Color="Color.Success" OnClick="Save">Save</MudButton>
+        </MudItem>            
+        }
+        <MudItem xs="7"></MudItem>
+    </MudGrid>
+    @if (menuRoleModel.book_id != 0)
+    {
+        
+    <MudTable Items="menuRoleModel.menu" Hover="true" SortLabel="Sort By" Elevation="25" Style="overflow-x: auto">
+        <HeaderContent>
+            <MudTh DataLabel="SubCategory">SubCategory</MudTh>
+            <MudTh DataLabel="Assign">Assign</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>@context.subcategory_name</MudTd>
+            <MudTd DataLabel="Select Category"><MudCheckBox @bind-Checked="context.IsActive"></MudCheckBox></MudTd>
+            <MudTd></MudTd>
+        </RowTemplate>
+    </MudTable>
+    }
+}

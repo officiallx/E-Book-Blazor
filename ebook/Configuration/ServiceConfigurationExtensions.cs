@@ -15,6 +15,8 @@ namespace ebook.Configuration
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ISubCategoryService, SubCategoryService>();
             services.AddTransient<IBookService, BookService>();
+            services.AddTransient<IMenuRoleServices, MenuRoleServices>().
+                AddTransient<IMenuRoleRepository, MenuRoleRepository>();
             return services;
         }
     }

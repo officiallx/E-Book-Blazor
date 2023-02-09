@@ -23,7 +23,13 @@ namespace ebook.Pages.Book
             foreach (var items in bookModel)
             {
                 items.publicationDate = DateTime.Parse(items.publication_date.ToString()).ToShortDateString();
+                items.book_cover = string.Concat("data:image/png;base64,", items.book_cover);
             }
+        }
+
+        private void BookClaims()
+        {
+            _navigationManager.NavigateTo("/bookcategory");
         }
 
         private async Task AddBooks()
@@ -37,6 +43,14 @@ namespace ebook.Pages.Book
             if (bookModel.book_id != null)
             {
                 await MenuDialog(bookModel);
+            }
+        }
+
+        private async Task ViewBook(BooksModel bookModel)
+        {
+            if (bookModel.book_id != null)
+            {
+                await AddBookDialog(bookModel);
             }
         }
 
@@ -65,6 +79,22 @@ namespace ebook.Pages.Book
             var parameters = new DialogParameters { ["booksModel"] = bookModel };
 
             var dialog = _dialogService.Show<BookSave>("Add Book", parameters, dialogOptions);
+            var result = await dialog.Result;
+            if (!result.Cancelled)
+            {
+                await GetBooks();
+                _snackBar.Add("Books Saved Successfully.", Severity.Success);
+            }
+        }
+
+        private async Task AddBookDialog(BooksModel bookModel)
+        {
+            var response = await booksService.getEBooksAsyncByBookId(bookModel.book_id);
+
+            var dialogOptions = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseButton = true };
+            var parameters = new DialogParameters { ["booksModel"] = bookModel, ["ebooksList"] = response };
+
+            var dialog = _dialogService.Show<EBookImageInsert>("Add Pages", parameters, dialogOptions);
             var result = await dialog.Result;
             if (!result.Cancelled)
             {

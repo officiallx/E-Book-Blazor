@@ -8,5 +8,7 @@ namespace ebook.Services.Interface
         Task<MessageResponse> saveBooksAsync(BooksModel books);
         Task<List<BooksModel>> getBooksAsync();
         Task deleteBooksAsync(long Id);
+        Task<MessageResponse> saveBooksImageAsync(EBookModel books);
+        Task<List<EBookModel>> getEBooksAsyncByBookId(int bookId);
     }
 }

@@ -1,0 +1,46 @@
+﻿
+<MudDialog>
+    <DialogContent>
+
+        <h3>Book Name : @booksModel.title.ToUpper()</h3>
+        <br/>
+        <MudPaper>
+            <MudList Clickable="false">
+                @foreach(var book in ebooksList)
+                {
+                    <MudListItem Dense="true" Typo="@Typo.subtitle1">@book.ebook_id</MudListItem>
+                }
+            </MudList>
+        </MudPaper>
+
+        <MudFileUpload T="IBrowserFile" FilesChanged="UploadFiles">
+            <ButtonTemplate>
+                <MudButton HtmlTag="label"
+                           Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.CloudUpload"
+                           for="@context">
+                    Upload Images
+                </MudButton>
+            </ButtonTemplate>
+        </MudFileUpload>
+        @if (files != null)
+        {
+            <MudText Typo="@Typo.body1">@files.Count() File@(files.Count() == 1 ? "" : "s"):</MudText>
+            <MudList>
+                @foreach (var file in files)
+                {
+                    <MudListItem Icon="@Icons.Material.Filled.AttachFile" @key="@file" Typo="@Typo.subtitle1">
+                        @file.Name <code>@file.Size bytes</code>
+                    </MudListItem>
+                }
+            </MudList>
+        }
+    </DialogContent>
+    <DialogActions>
+        <br />
+        <MudButton Variant="Variant.Filled" Color="Color.Success" OnClick="Save">Save Book Details</MudButton>
+    </DialogActions>
+</MudDialog>
+
+
