@@ -31,6 +31,12 @@ namespace ebook.Services.Impl
             return response;
         }
 
+        public async Task<List<BooksModel>> getProductFilteredAsync(string bookName)
+        {
+            var response = await this.GetQueryResultAsync<BooksModel>("exec spBooksList @Flag='GF',@Name=@Name", new { Name = bookName });
+            return response;
+        }
+
         public async Task<MessageResponse> saveBooksAsync(BooksModel books)
         {
             string Message = "";

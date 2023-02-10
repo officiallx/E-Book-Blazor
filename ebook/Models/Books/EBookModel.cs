@@ -5,6 +5,8 @@
         public int ebook_id { get; set; }
         public int book_id { get; set; }
         public string book_image { get; set; }
+        public string book_cover { get; set; }
+        public string title { get; set; }
         public int page_num { get; set; }
 
     }

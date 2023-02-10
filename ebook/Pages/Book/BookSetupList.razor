@@ -1,5 +1,7 @@
 ﻿@page "/booksetup"
 
+<PageTitle>Books Setup</PageTitle>
+
 @using ebook.Models.Books
 
 <MudGrid>
@@ -39,7 +41,7 @@
         <MudTd DataLabel="Published Date">@context.publicationDate</MudTd>
         <MudTd DataLabel="Pages">@context.num_pages</MudTd>
         <MudTd DataLabel="">
-            <MudFab @onclick="@(()=>ViewBook(@context))" Color="Color.Info" Icon="@Icons.Material.Filled.Search" Size="Size.Small" IconSize="Size.Small" />
+            <MudFab @onclick="@(()=>ViewBook(@context))" Color="Color.Info" Icon="@Icons.Material.Filled.FileUpload" Size="Size.Small" IconSize="Size.Small" />
             <MudFab @onclick="@(()=>EditBooks(@context))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small" />
             <MudFab @onclick="@(()=>DeleteBooks(@context.book_id))" Color="Color.Secondary" Icon="@Icons.Material.Filled.Delete" Size="Size.Small" IconSize="Size.Small" />
         </MudTd>

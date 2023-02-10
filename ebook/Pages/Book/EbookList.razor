@@ -1,0 +1,86 @@
+﻿@page "/ebooklist"
+
+<PageTitle>EBooks</PageTitle>
+
+<style>
+    .pointer:hover {
+        cursor: pointer;
+    }
+
+    .mud-container-maxwidth-lg {
+        max-width: 100%;
+    }
+
+    .centered-element {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+</style>
+
+@if (booksModelsList != null)
+{
+    <MudItem xs="12">
+        <MudGrid>
+            <MudItem xs="8">
+                <MudCard Outlined="true" Elevation="0">
+                    <MudCardContent>
+                        <MudGrid>
+                            <MudItem xs="4">
+                                <MudText Style="color:black;letter-spacing:1.5;padding-top:12px;padding-left:8px;" Typo="Typo.h6">All Items</MudText>
+                            </MudItem>
+                            <MudItem xs="8">
+                                <EditForm Model="booksModel" OnValidSubmit="filterProduct">
+                                    <MudTextField @bind-Value="searchString1" Immediate="true" Placeholder="Search" Adornment="Adornment.Start" Margin="Margin.Dense" AdornmentIcon="@Icons.Material.Rounded.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                                </EditForm>
+                            </MudItem>
+                        </MudGrid>
+                        <div style="height:36px;"></div>
+                        <MudGrid Spacing="2" Justify="Justify.FlexStart">
+                            @foreach (var books in booksModelsList)
+                            {
+                                <MudItem xs="2">
+                                    <MudCard Style="border-radius:10dp;height:270px" @onclick="@(() => ProductSelected(books.book_id))" Class="pointer">
+                                        <MudCardContent>
+                                            <MudImage Src=@books.book_cover ObjectFit="ObjectFit.Contain" Alt="Book Cover" Width="100" Height="140" Style="width:100%"/>
+                                            <div style="height:16px" />
+                                            <MudText Align="Align.Left" Style="font-size:14px;color:black;letter-spacing:1.5;">@books.title</MudText>
+                                            <div style="height:8px" />
+                                            <MudGrid>
+                                                <MudItem xs="12">
+                                                    <MudText Align="Align.Left" Style="font-size:12px;color:black;letter-spacing:1.5">@books.num_pages <span style="font-weight:bold;">Pages</span></MudText>
+                                                </MudItem>
+                                            </MudGrid>
+                                        </MudCardContent>
+                                    </MudCard>
+                                </MudItem>
+                            }
+                        </MudGrid>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+            <MudItem xs="4">
+                @if (SelectedProduct != null && ShowItem == true)
+                {
+                    <MudCard>
+                        <MudCardHeader>
+                            <MudText Typo="Typo.h6">Item Details</MudText>
+                        </MudCardHeader>
+                        <MudCardContent>
+                            <MudText Align="Align.Left" Style="font-size:14px;color:black;"><strong>Name : </strong>@SelectedProduct.title</MudText><br>
+                            <MudGrid>
+                                <MudItem xs="8">
+                                </MudItem>
+                                <MudItem xs="4">
+                                    <MudButton ButtonType="ButtonType.Button" Color="Color.Tertiary" Size="Size.Small" @onclick="readMoreClick">Read More</MudButton>
+                                </MudItem>
+                            </MudGrid>
+                        </MudCardContent>
+                    </MudCard>
+                }
+            </MudItem>
+        </MudGrid>
+    </MudItem>
+
+}
